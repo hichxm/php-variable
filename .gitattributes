@@ -8,3 +8,6 @@
 
 # Markdown files.
 *.md text eol=lf
+
+# PHP files.
+*.php text eol=lf
