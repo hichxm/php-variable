@@ -1,13 +1,13 @@
-# Git files.
+# Git
 .gitattributes text eol=lf
 .gitignore text eol=lf
 
-# JSON files.
+# JSON
 *.json text eol=lf
 *.lock text eol=lf
 
-# Markdown files.
+# Markdown
 *.md text eol=lf
 
-# PHP files.
+# PHP
 *.php text eol=lf

@@ -1,6 +1,6 @@
-# Composer directories and files.
+# Composer
 /vendor/
 /composer.phar
 
-# PhpStorm's project directory.
+# PhpStorm
 /.idea/
