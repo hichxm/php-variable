@@ -51,6 +51,14 @@ class Variable implements VariableInterface
     }
 
     /**
+     * @return \Quorrax\Classes\Variable
+     */
+    public function isBoolean()
+    {
+        return new Variable(is_bool($this->value));
+    }
+
+    /**
      * @param mixed $value
      */
     public function __construct($value = null)
