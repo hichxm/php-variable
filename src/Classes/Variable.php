@@ -59,6 +59,30 @@ class Variable implements VariableInterface
     }
 
     /**
+     * @return \Quorrax\Classes\Variable
+     */
+    public function isFloat()
+    {
+        return new Variable(is_float($this->value));
+    }
+
+    /**
+     * @return \Quorrax\Classes\Variable
+     */
+    public function isInteger()
+    {
+        return new Variable(is_int($this->value));
+    }
+
+    /**
+     * @return \Quorrax\Classes\Variable
+     */
+    public function isString()
+    {
+        return new Variable(is_string($this->value));
+    }
+
+    /**
      * @param mixed $value
      */
     public function __construct($value = null)

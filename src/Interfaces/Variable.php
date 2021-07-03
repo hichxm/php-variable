@@ -36,6 +36,21 @@ interface Variable
     public function isBoolean();
 
     /**
+     * @return \Quorrax\Interfaces\Variable
+     */
+    public function isFloat();
+
+    /**
+     * @return \Quorrax\Interfaces\Variable
+     */
+    public function isInteger();
+
+    /**
+     * @return \Quorrax\Interfaces\Variable
+     */
+    public function isString();
+
+    /**
      * @param mixed $value
      */
     public function __construct($value);
