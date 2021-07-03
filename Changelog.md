@@ -1,3 +1,10 @@
+# 1.3.0 #
+
+## Added ##
+
+* Added the `isNull` public method to the `Quorrax\Classes\Variable` class.
+* Added the `isNull` public method to the `Quorrax\Interfaces\Variable` interface.
+
 # 1.2.0 #
 
 ## Added ##

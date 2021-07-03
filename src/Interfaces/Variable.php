@@ -48,6 +48,11 @@ interface Variable
     /**
      * @return \Quorrax\Interfaces\Variable
      */
+    public function isNull();
+
+    /**
+     * @return \Quorrax\Interfaces\Variable
+     */
     public function isString();
 
     /**

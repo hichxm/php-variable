@@ -77,6 +77,14 @@ class Variable implements VariableInterface
     /**
      * @return \Quorrax\Classes\Variable
      */
+    public function isNull()
+    {
+        return new Variable(is_null($this->value));
+    }
+
+    /**
+     * @return \Quorrax\Classes\Variable
+     */
     public function isString()
     {
         return new Variable(is_string($this->value));
