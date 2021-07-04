@@ -58,6 +58,11 @@ interface Variable
     /**
      * @return \Quorrax\Interfaces\Variable
      */
+    public function isNumeric();
+
+    /**
+     * @return \Quorrax\Interfaces\Variable
+     */
     public function isScalar();
 
     /**

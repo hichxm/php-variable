@@ -93,6 +93,14 @@ class Variable implements VariableInterface
     /**
      * @return \Quorrax\Classes\Variable
      */
+    public function isNumeric()
+    {
+        return new Variable(is_numeric($this->value));
+    }
+
+    /**
+     * @return \Quorrax\Classes\Variable
+     */
     public function isScalar()
     {
         return new Variable(is_scalar($this->value));
