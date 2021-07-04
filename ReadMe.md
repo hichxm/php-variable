@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/quorrax/php-variable-test.svg?branch=pro)](https://travis-ci.com/quorrax/php-variable-test)
+
 # Copyright # 
 
 Copyright © 2021 Quorrax, S. L.
