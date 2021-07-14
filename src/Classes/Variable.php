@@ -43,6 +43,14 @@ class Variable implements VariableInterface
     }
 
     /**
+     * @return \Quorrax\Classes\Variable
+     */
+    public function getType()
+    {
+        return new Variable(gettype($this->value));
+    }
+
+    /**
      * @return mixed
      */
     public function getValue()
