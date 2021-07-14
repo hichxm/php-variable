@@ -4,9 +4,18 @@
 
 * Added the `Quorrax\Classes\Variables\Boolean` class.
     * Added the `setValue` private method.
+    * Added the `value` private property.
+    * Added the `getValue` public method.
+    * Added the `__construct` public method.
+* Added the `Quorrax\Classes\Variables\Character` class.
+    * Added the `setValue` private method.
+    * Added the `value` private property.
     * Added the `getValue` public method.
     * Added the `__construct` public method.
 * Added the `Quorrax\Interfaces\Variables\Boolean` interface.
+    * Added the `getValue` public method.
+    * Added the `__construct` public method.
+* Added the `Quorrax\Interfaces\Variables\Character` interface.
     * Added the `getValue` public method.
     * Added the `__construct` public method.
 

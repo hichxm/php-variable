@@ -22,27 +22,27 @@ namespace Quorrax\Classes\Variables;
 
 use Exception;
 use Quorrax\Classes\Variable;
-use Quorrax\Interfaces\Variables\Boolean as BooleanInterface;
+use Quorrax\Interfaces\Variables\Character as CharacterInterface;
 
 /**
- * @package Quorrax\Classes\Variable
+ * @package Quorrax\Classes\Variables
  */
-class Boolean extends Variable implements BooleanInterface
+class Character extends Variable implements CharacterInterface
 {
     /**
-     * @var bool
+     * @var string
      */
     private $value;
 
     /**
-     * @param bool $value
+     * @param string $value
      *
      * @return void
      * @throws \Exception
      */
     private function setValue($value)
     {
-        if (is_bool($value)) {
+        if (is_string($value)) {
             $this->value = $value;
         } else {
             throw new Exception(); // TODO: Add an exception message.
@@ -50,7 +50,7 @@ class Boolean extends Variable implements BooleanInterface
     }
 
     /**
-     * @return bool
+     * @return string
      */
     public function getValue()
     {
@@ -58,11 +58,11 @@ class Boolean extends Variable implements BooleanInterface
     }
 
     /**
-     * @param bool $value
+     * @param string $value
      *
      * @throws \Exception
      */
-    public function __construct($value = false)
+    public function __construct($value = "")
     {
         $this->setValue($value);
     }
