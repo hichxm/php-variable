@@ -74,9 +74,4 @@ interface Variable
      * @return \Quorrax\Interfaces\Variable
      */
     public function isString();
-
-    /**
-     * @param mixed $value
-     */
-    public function __construct($value);
 }

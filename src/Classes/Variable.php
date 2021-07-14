@@ -25,22 +25,12 @@ use Quorrax\Interfaces\Variable as VariableInterface;
 /**
  * @package Quorrax\Classes
  */
-class Variable implements VariableInterface
+abstract class Variable implements VariableInterface
 {
     /**
-     * @var mixed
+     * @return mixed
      */
-    private $value;
-
-    /**
-     * @param mixed $value
-     *
-     * @return void
-     */
-    private function setValue($value)
-    {
-        $this->value = $value;
-    }
+    abstract public function getValue();
 
     /**
      * @return \Quorrax\Classes\Variable
@@ -48,14 +38,6 @@ class Variable implements VariableInterface
     public function getType()
     {
         return new Variable(gettype($this->value));
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getValue()
-    {
-        return $this->value;
     }
 
     /**
@@ -120,13 +102,5 @@ class Variable implements VariableInterface
     public function isString()
     {
         return new Variable(is_string($this->value));
-    }
-
-    /**
-     * @param mixed $value
-     */
-    public function __construct($value = null)
-    {
-        $this->setValue($value);
     }
 }

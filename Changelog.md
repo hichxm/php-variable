@@ -1,3 +1,26 @@
+# 2.0.0 #
+
+## Added ##
+
+* Added the `Quorrax\Classes\Variables\Boolean` class.
+    * Added the `setValue` private method.
+    * Added the `getValue` public method.
+    * Added the `__construct` public method.
+* Added the `Quorrax\Interfaces\Variables\Boolean` interface.
+    * Added the `getValue` public method.
+    * Added the `__construct` public method.
+
+## Changed ##
+
+* Changed the `Quorrax\Classes\Variable` class, making it now abstract.
+* Changed the `getValue` method in the `Quorrax\Classes\Variable` class, making it abstract.
+
+## Removed ##
+
+* Removed the `setValue` private method from the `Quorrax\Classes\Variable` class.
+* Removed the `__construct` public method from the `Quorrax\Classes\Variable` class.
+* Removed the `__construct` public method from the `Quorrax\Interfaces\Variable` interface.
+
 # 1.4.0 #
 
 ## Added ##
