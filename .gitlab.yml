@@ -1,7 +1,7 @@
 .test:
     image: ${IMAGE}:${PHP}
     before_script:
-        - composer install --no-progress
+        - composer update --no-progress
     script:
         - composer test
     stage: test
