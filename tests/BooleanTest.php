@@ -27,6 +27,7 @@ use Quorrax\Classes\Variables\Boolean;
 use Quorrax\Classes\Variables\Character;
 use Quorrax\Interfaces\Variable as VariableInterface;
 use Quorrax\Interfaces\Variables\Boolean as BooleanInterface;
+use Quorrax\Interfaces\Variables\Character as CharacterInterface;
 
 /**
  * @package Quorrax\Tests
@@ -54,6 +55,30 @@ class BooleanTest extends TestCase
     public function provideMethodConstruct()
     {
         return $this->getValues();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetType()
+    {
+        return [
+            [
+                Character::class,
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeException()
+    {
+        return [
+            [
+                Boolean::class,
+            ],
+        ];
     }
 
     /**
@@ -147,6 +172,59 @@ class BooleanTest extends TestCase
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage(""); // TODO: Define an exception message.
         new Boolean($value);
+    }
+
+    /**
+     * @dataProvider provideMethodGetType
+     *
+     * @param string $return
+     *
+     * @return void
+     */
+    public function testMethodGetType($return)
+    {
+        try {
+            $variable = new Boolean();
+            $type = $variable->getType($return);
+            $this->assertInstanceOf(CharacterInterface::class, $type);
+            $this->assertInstanceOf($return, $type);
+            $this->assertSame("boolean", $type->getValue());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function testMethodGetTypeDefault()
+    {
+        try {
+            $variable = new Boolean();
+            $type = $variable->getType();
+            $this->assertInstanceOf(CharacterInterface::class, $type);
+            $this->assertInstanceOf(Character::class, $type);
+            $this->assertSame("boolean", $type->getValue());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
+        }
+    }
+
+    /**
+     * @dataProvider provideMethodGetTypeException
+     *
+     * @param string $return
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function testMethodGetTypeException($return)
+    {
+        $variable = new Boolean();
+        $this->expectException(Exception::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage(""); // TODO: Define an exception message.
+        $variable->getType($return);
     }
 
     /**

@@ -61,7 +61,7 @@ abstract class Variable implements VariableInterface
      */
     public function getType($return = Character::class)
     {
-        if ($return instanceof CharacterInterface) {
+        if (is_a($return, CharacterInterface::class, true)) {
             return new $return(gettype($this->getValue()));
         } else {
             throw new Exception(); // TODO: Define an exception message.
