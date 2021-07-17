@@ -24,6 +24,7 @@ use Exception;
 use PHPUnit\Framework\TestCase;
 use Quorrax\Classes\Variable;
 use Quorrax\Classes\Variables\Boolean;
+use Quorrax\Classes\Variables\Character;
 use Quorrax\Interfaces\Variable as VariableInterface;
 use Quorrax\Interfaces\Variables\Boolean as BooleanInterface;
 
@@ -61,6 +62,30 @@ class BooleanTest extends TestCase
     public function provideMethodGetValue()
     {
         return $this->getValues();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsBoolean()
+    {
+        return [
+            [
+                Boolean::class,
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsBooleanException()
+    {
+        return [
+            [
+                Character::class,
+            ],
+        ];
     }
 
     /**
@@ -148,5 +173,58 @@ class BooleanTest extends TestCase
     {
         $variable = new Boolean();
         $this->assertSame(false, $variable->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodIsBoolean
+     *
+     * @param string $return
+     *
+     * @return void
+     */
+    public function testMethodIsBoolean($return)
+    {
+        try {
+            $variable = new Boolean();
+            $isBoolean = $variable->isBoolean($return);
+            $this->assertInstanceOf(BooleanInterface::class, $isBoolean);
+            $this->assertInstanceOf($return, $isBoolean);
+            $this->assertSame(true, $isBoolean->getValue());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function testMethodIsBooleanDefault()
+    {
+        try {
+            $variable = new Boolean();
+            $isBoolean = $variable->isBoolean();
+            $this->assertInstanceOf(BooleanInterface::class, $isBoolean);
+            $this->assertInstanceOf(Boolean::class, $isBoolean);
+            $this->assertSame(true, $isBoolean->getValue());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
+        }
+    }
+
+    /**
+     * @dataProvider provideMethodIsBooleanException
+     *
+     * @param string $return
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function testMethodIsBooleanException($return)
+    {
+        $variable = new Boolean();
+        $this->expectException(Exception::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage(""); // TODO: Define an exception message.
+        $variable->isBoolean($return);
     }
 }

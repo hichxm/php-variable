@@ -41,7 +41,7 @@ abstract class Variable implements VariableInterface
      */
     private function is($function, $return)
     {
-        if ($return instanceof BooleanInterface) {
+        if (is_a($return, BooleanInterface::class, true)) {
             return new $return(call_user_func($function, $this->getValue()));
         } else {
             throw new Exception(); // TODO: Define an exception message.
