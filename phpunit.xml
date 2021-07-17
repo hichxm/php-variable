@@ -1,0 +1,18 @@
+<phpunit bootstrap="vendor/autoload.php" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/5.7/phpunit.xsd">
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+            <exclude>
+                <directory suffix=".php">tests</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+    <logging>
+        <log showUncoveredFiles="true" target="php://stdout" type="coverage-text"/>
+    </logging>
+    <testsuites>
+        <testsuite name="Variable Test Suite">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
