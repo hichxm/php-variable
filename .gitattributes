@@ -12,3 +12,6 @@
 # PHP
 /src/**.php text eol=lf
 /tests/**.php text eol=lf export-ignore
+
+# YAML files.
+*.yml text eol=lf export-ignore
