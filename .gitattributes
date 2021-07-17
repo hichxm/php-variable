@@ -10,8 +10,8 @@
 *.md text eol=lf
 
 # PHP
-/src/**.php text eol=lf
-/tests/**.php text eol=lf export-ignore
+*.php text eol=lf
+/tests export-ignore
 
 # XML
 *.xml text eol=lf export-ignore
