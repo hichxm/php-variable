@@ -18,21 +18,21 @@
  * along with quorrax/variable. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Quorrax\Tests;
+namespace Quorrax\Tests\Variables;
 
 use Exception;
-use PHPUnit_Framework_TestCase;
 use Quorrax\Classes\Variable;
 use Quorrax\Classes\Variables\Boolean;
 use Quorrax\Classes\Variables\Character;
 use Quorrax\Interfaces\Variable as VariableInterface;
 use Quorrax\Interfaces\Variables\Boolean as BooleanInterface;
 use Quorrax\Interfaces\Variables\Character as CharacterInterface;
+use Quorrax\Tests\VariableTest;
 
 /**
- * @package Quorrax\Tests
+ * @package Quorrax\Tests\Variables
  */
-class CharacterTest extends PHPUnit_Framework_TestCase
+class BooleanTest extends VariableTest
 {
     /**
      * @return array
@@ -41,7 +41,10 @@ class CharacterTest extends PHPUnit_Framework_TestCase
     {
         return [
             [
-                "",
+                false,
+            ],
+            [
+                true,
             ],
         ];
     }
@@ -57,57 +60,9 @@ class CharacterTest extends PHPUnit_Framework_TestCase
     /**
      * @return array
      */
-    public function provideMethodGetType()
-    {
-        return [
-            [
-                Character::class,
-            ],
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function provideMethodGetTypeException()
-    {
-        return [
-            [
-                Boolean::class,
-            ],
-        ];
-    }
-
-    /**
-     * @return array
-     */
     public function provideMethodGetValue()
     {
         return $this->getValues();
-    }
-
-    /**
-     * @return array
-     */
-    public function provideMethodIsBoolean()
-    {
-        return [
-            [
-                Boolean::class,
-            ],
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function provideMethodIsBooleanException()
-    {
-        return [
-            [
-                Character::class,
-            ],
-        ];
     }
 
     /**
@@ -115,15 +70,15 @@ class CharacterTest extends PHPUnit_Framework_TestCase
      */
     public function testExtensionVariable()
     {
-        $this->assertInstanceOf(Variable::class, new Character());
+        $this->assertInstanceOf(Variable::class, new Boolean());
     }
 
     /**
      * @return void
      */
-    public function testImplementationCharacter()
+    public function testImplementationBoolean()
     {
-        $this->assertInstanceOf(CharacterInterface::class, new Character());
+        $this->assertInstanceOf(BooleanInterface::class, new Boolean());
     }
 
     /**
@@ -131,35 +86,32 @@ class CharacterTest extends PHPUnit_Framework_TestCase
      */
     public function testImplementationVariable()
     {
-        $this->assertInstanceOf(VariableInterface::class, new Character());
+        $this->assertInstanceOf(VariableInterface::class, new Boolean());
     }
 
     /**
      * @dataProvider provideMethodConstruct
      *
-     * @param string $value
+     * @param bool $value
      *
      * @return void
      */
     public function testMethodConstruct($value)
     {
         try {
-            $this->assertInstanceOf(Character::class, new Character($value));
+            $this->assertInstanceOf(Boolean::class, new Boolean($value));
         } catch (Exception $exception) {
-            $this->fail($exception);
+            $this->fail($exception->getMessage());
         }
     }
 
-    /**
-     * @return void
-     */
     public function testMethodConstructDefault()
     {
-        $this->assertInstanceOf(Character::class, new Character());
+        $this->assertInstanceOf(Boolean::class, new Boolean());
     }
 
     /**
-     * @dataProvider \Quorrax\Tests\BooleanTest::provideMethodConstruct
+     * @dataProvider \Quorrax\Tests\Variables\CharacterTest::provideMethodConstruct
      *
      * @param mixed $value
      *
@@ -171,7 +123,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage(""); // TODO: Define an exception message.
-        new Character($value);
+        new Boolean($value);
     }
 
     /**
@@ -200,11 +152,11 @@ class CharacterTest extends PHPUnit_Framework_TestCase
     public function testMethodGetTypeDefault()
     {
         try {
-            $variable = new Character();
+            $variable = new Boolean();
             $type = $variable->getType();
             $this->assertInstanceOf(CharacterInterface::class, $type);
             $this->assertInstanceOf(Character::class, $type);
-            $this->assertSame("string", $type->getValue());
+            $this->assertSame("boolean", $type->getValue());
         } catch (Exception $exception) {
             $this->fail($exception->getMessage());
         }
@@ -220,7 +172,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
      */
     public function testMethodGetTypeException($return)
     {
-        $variable = new Character();
+        $variable = new Boolean();
         $this->expectException(Exception::class);
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage(""); // TODO: Define an exception message.
@@ -230,14 +182,14 @@ class CharacterTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider provideMethodGetValue
      *
-     * @param string $value
+     * @param bool $value
      *
      * @return void
      */
     public function testMethodGetValue($value)
     {
         try {
-            $variable = new Character($value);
+            $variable = new Boolean($value);
             $this->assertSame($value, $variable->getValue());
         } catch (Exception $exception) {
             $this->fail($exception->getMessage());
@@ -249,8 +201,8 @@ class CharacterTest extends PHPUnit_Framework_TestCase
      */
     public function testMethodGetValueDefault()
     {
-        $variable = new Character();
-        $this->assertSame("", $variable->getValue());
+        $variable = new Boolean();
+        $this->assertSame(false, $variable->getValue());
     }
 
     /**
@@ -263,11 +215,11 @@ class CharacterTest extends PHPUnit_Framework_TestCase
     public function testMethodIsBoolean($return)
     {
         try {
-            $variable = new Character();
+            $variable = new Boolean();
             $isBoolean = $variable->isBoolean($return);
             $this->assertInstanceOf(BooleanInterface::class, $isBoolean);
             $this->assertInstanceOf($return, $isBoolean);
-            $this->assertSame(false, $isBoolean->getValue());
+            $this->assertSame(true, $isBoolean->getValue());
         } catch (Exception $exception) {
             $this->fail($exception->getMessage());
         }
@@ -279,11 +231,11 @@ class CharacterTest extends PHPUnit_Framework_TestCase
     public function testMethodIsBooleanDefault()
     {
         try {
-            $variable = new Character();
+            $variable = new Boolean();
             $isBoolean = $variable->isBoolean();
             $this->assertInstanceOf(BooleanInterface::class, $isBoolean);
             $this->assertInstanceOf(Boolean::class, $isBoolean);
-            $this->assertSame(false, $isBoolean->getValue());
+            $this->assertSame(true, $isBoolean->getValue());
         } catch (Exception $exception) {
             $this->fail($exception->getMessage());
         }
@@ -299,7 +251,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
      */
     public function testMethodIsBooleanException($return)
     {
-        $variable = new Character();
+        $variable = new Boolean();
         $this->expectException(Exception::class);
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage(""); // TODO: Define an exception message.
