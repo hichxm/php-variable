@@ -4,8 +4,7 @@
         - composer install --no-progress
     script:
         - composer test
-    stage:
-        - test
+    stage: test
 
 cache:
     key: ${CI_JOB_NAME}
