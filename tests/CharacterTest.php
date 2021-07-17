@@ -57,6 +57,30 @@ class CharacterTest extends PHPUnit_Framework_TestCase
     /**
      * @return array
      */
+    public function provideMethodGetType()
+    {
+        return [
+            [
+                Character::class,
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeException()
+    {
+        return [
+            [
+                Boolean::class,
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
     public function provideMethodGetValue()
     {
         return $this->getValues();
@@ -148,6 +172,59 @@ class CharacterTest extends PHPUnit_Framework_TestCase
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage(""); // TODO: Define an exception message.
         new Character($value);
+    }
+
+    /**
+     * @dataProvider provideMethodGetType
+     *
+     * @param string $return
+     *
+     * @return void
+     */
+    public function testMethodGetType($return)
+    {
+        try {
+            $variable = new Boolean();
+            $type = $variable->getType($return);
+            $this->assertInstanceOf(CharacterInterface::class, $type);
+            $this->assertInstanceOf($return, $type);
+            $this->assertSame("boolean", $type->getValue());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function testMethodGetTypeDefault()
+    {
+        try {
+            $variable = new Character();
+            $type = $variable->getType();
+            $this->assertInstanceOf(CharacterInterface::class, $type);
+            $this->assertInstanceOf(Character::class, $type);
+            $this->assertSame("string", $type->getValue());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
+        }
+    }
+
+    /**
+     * @dataProvider provideMethodGetTypeException
+     *
+     * @param string $return
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function testMethodGetTypeException($return)
+    {
+        $variable = new Character();
+        $this->expectException(Exception::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage(""); // TODO: Define an exception message.
+        $variable->getType($return);
     }
 
     /**
