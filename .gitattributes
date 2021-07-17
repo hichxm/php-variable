@@ -10,4 +10,5 @@
 *.md text eol=lf
 
 # PHP
-*.php text eol=lf
+/src/**.php text eol=lf
+/tests/**.php text eol=lf export-ignore

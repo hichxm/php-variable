@@ -22,7 +22,17 @@
 ## Changed ##
 
 * Changed the `Quorrax\Classes\Variable` class, making it now abstract.
-* Changed the `getValue` method in the `Quorrax\Classes\Variable` class, making it abstract.
+* Changed the `getType` public method, making it now accept a class namespace as a parameter and return an object which implements the `Quorrax\Interfaces\Variables\Character` interface.
+* Changed the `getValue` public method in the `Quorrax\Classes\Variable` class, making it abstract.
+* Changed the following public methods to accept a class namespace and return an object which implements the `Quorrax\Interfaces\Variables\Boolean` interface.
+    * `isBoolean`
+    * `isEmpty`
+    * `isFloat`
+    * `isInteger`
+    * `isNull`
+    * `isNumeric`
+    * `isScalar`
+    * `isString`
 
 ## Removed ##
 
