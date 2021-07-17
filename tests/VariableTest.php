@@ -30,6 +30,30 @@ use Quorrax\Classes\Variables\Character;
 abstract class VariableTest extends PHPUnit_Framework_TestCase
 {
     /**
+     * @return array
+     */
+    private function provideMethodIs()
+    {
+        return [
+            [
+                Boolean::class,
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function provideMethodIsException()
+    {
+        return [
+            [
+                Character::class,
+            ],
+        ];
+    }
+
+    /**
      * @dataProvider provideMethodGetType
      *
      * @param string $return
@@ -76,6 +100,25 @@ abstract class VariableTest extends PHPUnit_Framework_TestCase
     abstract public function testMethodIsBooleanException($return);
 
     /**
+     * @param string $return
+     *
+     * @return void
+     */
+    abstract public function testMethodIsString($return);
+
+    /**
+     * @return void
+     */
+    abstract public function testMethodIsStringDefault();
+
+    /**
+     * @param string $return
+     *
+     * @return void
+     */
+    abstract public function testMethodIsStringException($return);
+
+    /**
      * @return array
      */
     public function provideMethodGetType()
@@ -104,11 +147,7 @@ abstract class VariableTest extends PHPUnit_Framework_TestCase
      */
     public function provideMethodIsBoolean()
     {
-        return [
-            [
-                Boolean::class,
-            ],
-        ];
+        return $this->provideMethodIs();
     }
 
     /**
@@ -116,10 +155,22 @@ abstract class VariableTest extends PHPUnit_Framework_TestCase
      */
     public function provideMethodIsBooleanException()
     {
-        return [
-            [
-                Character::class,
-            ],
-        ];
+        return $this->provideMethodIsException();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsString()
+    {
+        return $this->provideMethodIs();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsStringException()
+    {
+        return $this->provideMethodIsException();
     }
 }

@@ -257,4 +257,54 @@ class CharacterTest extends VariableTest
         $this->expectExceptionMessage(""); // TODO: Define an exception message.
         $variable->isBoolean($return);
     }
+
+    /**
+     * @dataProvider provideMethodIsString
+     *
+     * @param string $return
+     *
+     * @return void
+     */
+    public function testMethodIsString($return)
+    {
+        try {
+            $variable = new Character();
+            $isString = $variable->isString($return);
+            $this->assertInstanceOf(BooleanInterface::class, $isString);
+            $this->assertInstanceOf($return, $isString);
+            $this->assertSame(true, $isString->getValue());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
+        }
+    }
+
+    public function testMethodIsStringDefault()
+    {
+        try {
+            $variable = new Character();
+            $isString = $variable->isString();
+            $this->assertInstanceOf(BooleanInterface::class, $isString);
+            $this->assertInstanceOf(Boolean::class, $isString);
+            $this->assertSame(true, $isString->getValue());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
+        }
+    }
+
+    /**
+     * @dataProvider provideMethodIsStringException
+     *
+     * @param string $return
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function testMethodIsStringException($return)
+    {
+        $variable = new Character();
+        $this->expectException(Exception::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage(""); // TODO: Define an exception message.
+        $variable->isString($return);
+    }
 }
