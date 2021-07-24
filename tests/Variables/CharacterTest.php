@@ -39,9 +39,38 @@ class CharacterTest extends VariableTest
      */
     private function getValues()
     {
+        return array_merge(
+            $this->getValuesEmpty(),
+            $this->getValuesEmptyNot()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    private function getValuesEmpty()
+    {
         return [
             [
                 "",
+            ],
+            [
+                "0",
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getValuesEmptyNot()
+    {
+        return [
+            [
+                "string",
+            ],
+            [
+                "1",
             ],
         ];
     }
@@ -60,6 +89,38 @@ class CharacterTest extends VariableTest
     public function provideMethodGetValue()
     {
         return $this->getValues();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsEmptyDefaultFalse()
+    {
+        return $this->getValuesEmptyNot();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsEmptyDefaultTrue()
+    {
+        return $this->getValuesEmpty();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsEmptyFalse()
+    {
+        return $this->provideMethodIsEmptyTemplate($this->getValuesEmptyNot());
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsEmptyTrue()
+    {
+        return $this->provideMethodIsEmptyTemplate($this->getValuesEmpty());
     }
 
     /**
@@ -256,6 +317,141 @@ class CharacterTest extends VariableTest
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage(""); // TODO: Define an exception message.
         $variable->isBoolean($return);
+    }
+
+    /**
+     * @dataProvider provideMethodIsEmpty
+     *
+     * @param string $return
+     *
+     * @return void
+     */
+    public function testMethodIsEmpty($return)
+    {
+        try {
+            $variable = new Character();
+            $isEmpty = $variable->isEmpty($return);
+            $this->assertInstanceOf(BooleanInterface::class, $isEmpty);
+            $this->assertInstanceOf($return, $isEmpty);
+            $this->assertSame(true, $isEmpty->getValue());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function testMethodIsEmptyDefault()
+    {
+        try {
+            $variable = new Character();
+            $isEmpty = $variable->isEmpty();
+            $this->assertInstanceOf(BooleanInterface::class, $isEmpty);
+            $this->assertInstanceOf(Boolean::class, $isEmpty);
+            $this->assertSame(true, $isEmpty->getValue());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
+        }
+    }
+
+    /**
+     * @dataProvider provideMethodIsEmptyDefaultFalse
+     *
+     * @param string $value
+     *
+     * @return void
+     */
+    public function testMethodIsEmptyDefaultFalse($value)
+    {
+        try {
+            $variable = new Character($value);
+            $isEmpty = $variable->isEmpty();
+            $this->assertInstanceOf(BooleanInterface::class, $isEmpty);
+            $this->assertInstanceOf(Boolean::class, $isEmpty);
+            $this->assertSame(false, $isEmpty->getValue());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
+        }
+    }
+
+    /**
+     * @dataProvider provideMethodIsEmptyDefaultTrue
+     *
+     * @param string $value
+     *
+     * @return void
+     */
+    public function testMethodIsEmptyDefaultTrue($value)
+    {
+        try {
+            $variable = new Character($value);
+            $isEmpty = $variable->isEmpty();
+            $this->assertInstanceOf(BooleanInterface::class, $isEmpty);
+            $this->assertInstanceOf(Boolean::class, $isEmpty);
+            $this->assertSame(true, $isEmpty->getValue());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
+        }
+    }
+
+    /**
+     * @dataProvider provideMethodIsEmptyException
+     *
+     * @param string $return
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function testMethodIsEmptyException($return)
+    {
+        $variable = new Character();
+        $this->expectException(Exception::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage(""); // TODO: Define an exception message.
+        $variable->isEmpty($return);
+    }
+
+    /**
+     * @dataProvider provideMethodIsEmptyFalse
+     *
+     * @param string $value
+     * @param string $return
+     *
+     * @return void
+     */
+    public function testMethodIsEmptyFalse($value, $return)
+    {
+        try {
+            $variable = new Character($value);
+            $isEmpty = $variable->isEmpty($return);
+            $this->assertInstanceOf(BooleanInterface::class, $isEmpty);
+            $this->assertInstanceOf($return, $isEmpty);
+            $this->assertSame(false, $isEmpty->getValue());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
+        }
+    }
+
+    /**
+     * @dataProvider provideMethodIsEmptyTrue
+     *
+     * @param string $value
+     * @param string $return
+     *
+     * @return void
+     */
+    public function testMethodIsEmptyTrue($value, $return)
+    {
+        try {
+            $variable = new Character($value);
+            $isEmpty = $variable->isEmpty($return);
+            $this->assertInstanceOf(BooleanInterface::class, $isEmpty);
+            $this->assertInstanceOf($return, $isEmpty);
+            $this->assertSame(true, $isEmpty->getValue());
+        } catch (Exception $exception) {
+            $this->fail($exception->getMessage());
+        }
     }
 
     /**

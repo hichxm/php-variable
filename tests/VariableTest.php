@@ -54,6 +54,42 @@ abstract class VariableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param array $values
+     *
+     * @return array
+     */
+    protected function provideMethodIsEmptyTemplate($values)
+    {
+        $result = [];
+        foreach ($values as $value) {
+            foreach ($this->provideMethodIsEmpty() as $method) {
+                array_push($result, array_merge($value, $method));
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * @return array
+     */
+    abstract public function provideMethodIsEmptyDefaultFalse();
+
+    /**
+     * @return array
+     */
+    abstract public function provideMethodIsEmptyDefaultTrue();
+
+    /**
+     * @return array
+     */
+    abstract public function provideMethodIsEmptyFalse();
+
+    /**
+     * @return array
+     */
+    abstract public function provideMethodIsEmptyTrue();
+
+    /**
      * @dataProvider provideMethodGetType
      *
      * @param string $return
@@ -154,6 +190,22 @@ abstract class VariableTest extends PHPUnit_Framework_TestCase
      * @return array
      */
     public function provideMethodIsBooleanException()
+    {
+        return $this->provideMethodIsException();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsEmpty()
+    {
+        return $this->provideMethodIs();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsEmptyException()
     {
         return $this->provideMethodIsException();
     }
