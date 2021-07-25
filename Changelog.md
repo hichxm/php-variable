@@ -5,13 +5,11 @@
 * Added new methods to the `Quorrax\Classes\Variable` class:
     * Added the `getType` public method.
     * Added the `isEmpty` public method.
-    * Added the `isNull` public method.
     * Added the `isNumeric` public method.
     * Added the `isScalar` public method.
 * Added new methods to the `Quorrax\Interfaces\Variable` interface:
     * Added the `getType` public method.
     * Added the `isEmpty` public method.
-    * Added the `isNull` public method.
     * Added the `isNumeric` public method.
     * Added the `isScalar` public method.
 
