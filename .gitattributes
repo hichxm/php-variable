@@ -11,7 +11,7 @@
 
 # PHP
 *.php text eol=lf
-/tests/ export-ignore
+/tests export-ignore
 
 # XML
 *.xml text eol=lf export-ignore
