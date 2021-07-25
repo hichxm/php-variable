@@ -297,6 +297,27 @@ class VariableTest extends TestCase implements VariableTestInterface
     /**
      * @return array
      */
+    public function provideMethodIsScalarFalse()
+    {
+        return $this->getValuesNull();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsScalarTrue()
+    {
+        return array_merge(
+            $this->getValuesBoolean(),
+            $this->getValuesFloat(),
+            $this->getValuesInteger(),
+            $this->getValuesString()
+        );
+    }
+
+    /**
+     * @return array
+     */
     public function provideMethodIsStringFalse()
     {
         return array_merge(
@@ -675,6 +696,50 @@ class VariableTest extends TestCase implements VariableTestInterface
         $this->assertInstanceOf(VariableInterface::class, $isNumeric);
         $this->assertInstanceOf(Variable::class, $isNumeric);
         $this->assertSame(true, $isNumeric->getValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testMethodIsScalarDefault()
+    {
+        $variable = new Variable();
+        $isScalar = $variable->isScalar();
+        $this->assertInstanceOf(VariableInterface::class, $isScalar);
+        $this->assertInstanceOf(Variable::class, $isScalar);
+        $this->assertSame(false, $isScalar->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodIsScalarFalse
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsScalarFalse($value)
+    {
+        $variable = new Variable($value);
+        $isScalar = $variable->isScalar();
+        $this->assertInstanceOf(VariableInterface::class, $isScalar);
+        $this->assertInstanceOf(Variable::class, $isScalar);
+        $this->assertSame(false, $isScalar->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodIsScalarTrue
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsScalarTrue($value)
+    {
+        $variable = new Variable($value);
+        $isScalar = $variable->isScalar();
+        $this->assertInstanceOf(VariableInterface::class, $isScalar);
+        $this->assertInstanceOf(Variable::class, $isScalar);
+        $this->assertSame(true, $isScalar->getValue());
     }
 
     /**

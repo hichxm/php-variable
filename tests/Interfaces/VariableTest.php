@@ -113,6 +113,16 @@ interface VariableTest
     /**
      * @return array
      */
+    public function provideMethodIsScalarFalse();
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsScalarTrue();
+
+    /**
+     * @return array
+     */
     public function provideMethodIsStringFalse();
 
     /**
@@ -315,6 +325,29 @@ interface VariableTest
      * @return void
      */
     public function testMethodIsNumericTrue($value);
+
+    /**
+     * @return mixed
+     */
+    public function testMethodIsScalarDefault();
+
+    /**
+     * @dataProvider provideMethodIsScalarFalse
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsScalarFalse($value);
+
+    /**
+     * @dataProvider provideMethodIsScalarTrue
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsScalarTrue($value);
 
     /**
      * @return void
