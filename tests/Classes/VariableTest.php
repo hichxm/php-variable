@@ -35,16 +35,59 @@ class VariableTest extends TestCase implements VariableTestInterface
      */
     private function getValues()
     {
+        return array_merge(
+            $this->getValuesBoolean(),
+            $this->getValuesFloat(),
+            $this->getValuesInteger(),
+            $this->getValuesString()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    private function getValuesBoolean()
+    {
         return [
             [
                 false,
             ],
             [
+                true,
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getValuesFloat()
+    {
+        return [
+            [
                 0.0,
             ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getValuesInteger()
+    {
+        return [
             [
                 0,
             ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getValuesString()
+    {
+        return [
             [
                 "",
             ],
@@ -65,6 +108,26 @@ class VariableTest extends TestCase implements VariableTestInterface
     public function provideMethodGetValue()
     {
         return $this->getValues();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsBooleanFalse()
+    {
+        return array_merge(
+            $this->getValuesFloat(),
+            $this->getValuesInteger(),
+            $this->getValuesString()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsBooleanTrue()
+    {
+        return $this->getValuesBoolean();
     }
 
     /**
@@ -115,5 +178,49 @@ class VariableTest extends TestCase implements VariableTestInterface
     {
         $variable = new Variable();
         $this->assertSame(null, $variable->getValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testMethodIsBooleanDefault()
+    {
+        $variable = new Variable();
+        $isBoolean = $variable->isBoolean();
+        $this->assertInstanceOf(VariableInterface::class, $isBoolean);
+        $this->assertInstanceOf(Variable::class, $isBoolean);
+        $this->assertSame(false, $isBoolean->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodIsBooleanFalse
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsBooleanFalse($value)
+    {
+        $variable = new Variable($value);
+        $isBoolean = $variable->isBoolean();
+        $this->assertInstanceOf(VariableInterface::class, $isBoolean);
+        $this->assertInstanceOf(Variable::class, $isBoolean);
+        $this->assertSame(false, $isBoolean->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodIsBooleanTrue
+     *
+     * @param bool $value
+     *
+     * @return void
+     */
+    public function testMethodIsBooleanTrue($value)
+    {
+        $variable = new Variable($value);
+        $isBoolean = $variable->isBoolean();
+        $this->assertInstanceOf(VariableInterface::class, $isBoolean);
+        $this->assertInstanceOf(Variable::class, $isBoolean);
+        $this->assertSame(true, $isBoolean->getValue());
     }
 }

@@ -36,6 +36,16 @@ interface VariableTest
     public function provideMethodGetValue();
 
     /**
+     * @return array
+     */
+    public function provideMethodIsBooleanFalse();
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsBooleanTrue();
+
+    /**
      * @return void
      */
     public function testImplementationVariable();
@@ -67,4 +77,27 @@ interface VariableTest
      * @return void
      */
     public function testMethodGetValueDefault();
+
+    /**
+     * @return void
+     */
+    public function testMethodIsBooleanDefault();
+
+    /**
+     * @dataProvider provideMethodIsBooleanFalse
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsBooleanFalse($value);
+
+    /**
+     * @dataProvider provideMethodIsBooleanTrue
+     *
+     * @param bool $value
+     *
+     * @return void
+     */
+    public function testMethodIsBooleanTrue($value);
 }
