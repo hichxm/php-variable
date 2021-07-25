@@ -56,6 +56,16 @@ interface VariableTest
     public function provideMethodIsFloatTrue();
 
     /**
+     * @return array
+     */
+    public function provideMethodIsIntegerFalse();
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsIntegerTrue();
+
+    /**
      * @return void
      */
     public function testImplementationVariable();
@@ -133,4 +143,27 @@ interface VariableTest
      * @return void
      */
     public function testMethodIsFloatTrue($value);
+
+    /**
+     * @return void
+     */
+    public function testMethodIsIntegerDefault();
+
+    /**
+     * @dataProvider provideMethodIsIntegerFalse
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsIntegerFalse($value);
+
+    /**
+     * @dataProvider provideMethodIsIntegerTrue
+     *
+     * @param int $value
+     *
+     * @return void
+     */
+    public function testMethodIsIntegerTrue($value);
 }

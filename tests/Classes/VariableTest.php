@@ -151,6 +151,26 @@ class VariableTest extends TestCase implements VariableTestInterface
     }
 
     /**
+     * @return array
+     */
+    public function provideMethodIsIntegerFalse()
+    {
+        return array_merge(
+            $this->getValuesBoolean(),
+            $this->getValuesFloat(),
+            $this->getValuesString()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsIntegerTrue()
+    {
+        return $this->getValuesInteger();
+    }
+
+    /**
      * @return void
      */
     public function testImplementationVariable()
@@ -286,5 +306,49 @@ class VariableTest extends TestCase implements VariableTestInterface
         $this->assertInstanceOf(VariableInterface::class, $isFloat);
         $this->assertInstanceOf(Variable::class, $isFloat);
         $this->assertSame(true, $isFloat->getValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testMethodIsIntegerDefault()
+    {
+        $variable = new Variable();
+        $isInteger = $variable->isInteger();
+        $this->assertInstanceOf(VariableInterface::class, $isInteger);
+        $this->assertInstanceOf(Variable::class, $isInteger);
+        $this->assertSame(false, $isInteger->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodIsIntegerFalse
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsIntegerFalse($value)
+    {
+        $variable = new Variable($value);
+        $isInteger = $variable->isInteger();
+        $this->assertInstanceOf(VariableInterface::class, $isInteger);
+        $this->assertInstanceOf(Variable::class, $isInteger);
+        $this->assertSame(false, $isInteger->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodIsIntegerTrue
+     *
+     * @param int $value
+     *
+     * @return void
+     */
+    public function testMethodIsIntegerTrue($value)
+    {
+        $variable = new Variable($value);
+        $isInteger = $variable->isInteger();
+        $this->assertInstanceOf(VariableInterface::class, $isInteger);
+        $this->assertInstanceOf(Variable::class, $isInteger);
+        $this->assertSame(true, $isInteger->getValue());
     }
 }
