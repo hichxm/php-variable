@@ -33,6 +33,26 @@ interface VariableTest
     /**
      * @return array
      */
+    public function provideMethodGetTypeBoolean();
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeDouble();
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeInteger();
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeString();
+
+    /**
+     * @return array
+     */
     public function provideMethodGetValue();
 
     /**
@@ -93,6 +113,47 @@ interface VariableTest
      * @return void
      */
     public function testMethodConstructDefault();
+
+    /**
+     * @dataProvider provideMethodGetTypeBoolean
+     *
+     * @param bool $value
+     *
+     * @return void
+     */
+    public function testMethodGetTypeBoolean($value);
+
+    /**
+     * @return void
+     */
+    public function testMethodGetTypeDefault();
+
+    /**
+     * @dataProvider provideMethodGetTypeDouble
+     *
+     * @param float $value
+     *
+     * @return void
+     */
+    public function testMethodGetTypeDouble($value);
+
+    /**
+     * @dataProvider provideMethodGetTypeInteger
+     *
+     * @param int $value
+     *
+     * @return void
+     */
+    public function testMethodGetTypeInteger($value);
+
+    /**
+     * @dataProvider provideMethodGetTypeString
+     *
+     * @param string $value
+     *
+     * @return void
+     */
+    public function testMethodGetTypeString($value);
 
     /**
      * @dataProvider provideMethodGetValue

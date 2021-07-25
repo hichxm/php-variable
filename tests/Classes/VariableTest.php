@@ -105,6 +105,38 @@ class VariableTest extends TestCase implements VariableTestInterface
     /**
      * @return array
      */
+    public function provideMethodGetTypeBoolean()
+    {
+        return $this->getValuesBoolean();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeDouble()
+    {
+        return $this->getValuesFloat();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeInteger()
+    {
+        return $this->getValuesInteger();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeString()
+    {
+        return $this->getValuesString();
+    }
+
+    /**
+     * @return array
+     */
     public function provideMethodGetValue()
     {
         return $this->getValues();
@@ -216,6 +248,82 @@ class VariableTest extends TestCase implements VariableTestInterface
     public function testMethodConstructDefault()
     {
         $this->assertInstanceOf(Variable::class, new Variable());
+    }
+
+    /**
+     * @dataProvider provideMethodGetTypeBoolean
+     *
+     * @param bool $value
+     *
+     * @return void
+     */
+    public function testMethodGetTypeBoolean($value)
+    {
+        $variable = new Variable($value);
+        $type = $variable->getType();
+        $this->assertInstanceOf(VariableInterface::class, $type);
+        $this->assertInstanceOf(Variable::class, $type);
+        $this->assertSame("boolean", $type->getValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testMethodGetTypeDefault()
+    {
+        $variable = new Variable();
+        $type = $variable->getType();
+        $this->assertInstanceOf(VariableInterface::class, $type);
+        $this->assertInstanceOf(Variable::class, $type);
+        $this->assertSame("NULL", $type->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodGetTypeDouble
+     *
+     * @param float $value
+     *
+     * @return void
+     */
+    public function testMethodGetTypeDouble($value)
+    {
+        $variable = new Variable($value);
+        $type = $variable->getType();
+        $this->assertInstanceOf(VariableInterface::class, $type);
+        $this->assertInstanceOf(Variable::class, $type);
+        $this->assertSame("double", $type->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodGetTypeInteger
+     *
+     * @param int $value
+     *
+     * @return void
+     */
+    public function testMethodGetTypeInteger($value)
+    {
+        $variable = new Variable($value);
+        $type = $variable->getType();
+        $this->assertInstanceOf(VariableInterface::class, $type);
+        $this->assertInstanceOf(Variable::class, $type);
+        $this->assertSame("integer", $type->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodGetTypeString
+     *
+     * @param string $value
+     *
+     * @return void
+     */
+    public function testMethodGetTypeString($value)
+    {
+        $variable = new Variable($value);
+        $type = $variable->getType();
+        $this->assertInstanceOf(VariableInterface::class, $type);
+        $this->assertInstanceOf(Variable::class, $type);
+        $this->assertSame("string", $type->getValue());
     }
 
     /**
