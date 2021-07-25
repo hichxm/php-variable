@@ -48,6 +48,11 @@ interface VariableTest
     /**
      * @return array
      */
+    public function provideMethodGetTypeNull();
+
+    /**
+     * @return array
+     */
     public function provideMethodGetTypeString();
 
     /**
@@ -84,6 +89,16 @@ interface VariableTest
      * @return array
      */
     public function provideMethodIsIntegerTrue();
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsNullFalse();
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsNullTrue();
 
     /**
      * @return array
@@ -155,6 +170,13 @@ interface VariableTest
      * @return void
      */
     public function testMethodGetTypeInteger($value);
+
+    /**
+     * @param null $value
+     *
+     * @return void
+     */
+    public function testMethodGetTypeNull($value);
 
     /**
      * @dataProvider provideMethodGetTypeString
@@ -247,6 +269,29 @@ interface VariableTest
      * @return void
      */
     public function testMethodIsIntegerTrue($value);
+
+    /**
+     * @return void
+     */
+    public function testMethodIsNullDefault();
+
+    /**
+     * @dataProvider provideMethodIsNullFalse
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsNullFalse($value);
+
+    /**
+     * @dataProvider provideMethodIsNullTrue
+     *
+     * @param null $value
+     *
+     * @return void
+     */
+    public function testMethodIsNullTrue($value);
 
     /**
      * @return void

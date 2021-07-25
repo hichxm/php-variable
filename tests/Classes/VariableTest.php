@@ -39,6 +39,7 @@ class VariableTest extends TestCase implements VariableTestInterface
             $this->getValuesBoolean(),
             $this->getValuesFloat(),
             $this->getValuesInteger(),
+            $this->getValuesNull(),
             $this->getValuesString()
         );
     }
@@ -78,6 +79,18 @@ class VariableTest extends TestCase implements VariableTestInterface
         return [
             [
                 0,
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getValuesNull()
+    {
+        return [
+            [
+                null,
             ],
         ];
     }
@@ -152,6 +165,14 @@ class VariableTest extends TestCase implements VariableTestInterface
     /**
      * @return array
      */
+    public function provideMethodGetTypeNull()
+    {
+        return $this->getValuesNull();
+    }
+
+    /**
+     * @return array
+     */
     public function provideMethodGetTypeString()
     {
         return $this->getValuesString();
@@ -173,6 +194,7 @@ class VariableTest extends TestCase implements VariableTestInterface
         return array_merge(
             $this->getValuesFloat(),
             $this->getValuesInteger(),
+            $this->getValuesNull(),
             $this->getValuesString()
         );
     }
@@ -193,6 +215,7 @@ class VariableTest extends TestCase implements VariableTestInterface
         return array_merge(
             $this->getValuesBoolean(),
             $this->getValuesInteger(),
+            $this->getValuesNull(),
             $this->getValuesString()
         );
     }
@@ -213,6 +236,7 @@ class VariableTest extends TestCase implements VariableTestInterface
         return array_merge(
             $this->getValuesBoolean(),
             $this->getValuesFloat(),
+            $this->getValuesNull(),
             $this->getValuesString()
         );
     }
@@ -228,10 +252,32 @@ class VariableTest extends TestCase implements VariableTestInterface
     /**
      * @return array
      */
+    public function provideMethodIsNullFalse()
+    {
+        return array_merge(
+            $this->getValuesBoolean(),
+            $this->getValuesFloat(),
+            $this->getValuesInteger(),
+            $this->getValuesString()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsNullTrue()
+    {
+        return $this->getValuesNull();
+    }
+
+    /**
+     * @return array
+     */
     public function provideMethodIsNumericFalse()
     {
         return array_merge(
             $this->getValuesBoolean(),
+            $this->getValuesNull(),
             $this->getValuesStringNumericNot()
         );
     }
@@ -256,7 +302,8 @@ class VariableTest extends TestCase implements VariableTestInterface
         return array_merge(
             $this->getValuesBoolean(),
             $this->getValuesFloat(),
-            $this->getValuesInteger()
+            $this->getValuesInteger(),
+            $this->getValuesNull()
         );
     }
 
@@ -354,6 +401,22 @@ class VariableTest extends TestCase implements VariableTestInterface
         $this->assertInstanceOf(VariableInterface::class, $type);
         $this->assertInstanceOf(Variable::class, $type);
         $this->assertSame("integer", $type->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodGetTypeNull
+     *
+     * @param null $value
+     *
+     * @return void
+     */
+    public function testMethodGetTypeNull($value)
+    {
+        $variable = new Variable($value);
+        $type = $variable->getType();
+        $this->assertInstanceOf(VariableInterface::class, $type);
+        $this->assertInstanceOf(Variable::class, $type);
+        $this->assertSame("NULL", $type->getValue());
     }
 
     /**
@@ -524,6 +587,50 @@ class VariableTest extends TestCase implements VariableTestInterface
         $this->assertInstanceOf(VariableInterface::class, $isInteger);
         $this->assertInstanceOf(Variable::class, $isInteger);
         $this->assertSame(true, $isInteger->getValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testMethodIsNullDefault()
+    {
+        $variable = new Variable();
+        $isNull = $variable->isNull();
+        $this->assertInstanceOf(VariableInterface::class, $isNull);
+        $this->assertInstanceOf(Variable::class, $isNull);
+        $this->assertSame(true, $isNull->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodIsNullFalse
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsNullFalse($value)
+    {
+        $variable = new Variable($value);
+        $isNull = $variable->isNull();
+        $this->assertInstanceOf(VariableInterface::class, $isNull);
+        $this->assertInstanceOf(Variable::class, $isNull);
+        $this->assertSame(false, $isNull->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodIsNullTrue
+     *
+     * @param null $value
+     *
+     * @return void
+     */
+    public function testMethodIsNullTrue($value)
+    {
+        $variable = new Variable($value);
+        $isNull = $variable->isNull();
+        $this->assertInstanceOf(VariableInterface::class, $isNull);
+        $this->assertInstanceOf(Variable::class, $isNull);
+        $this->assertSame(true, $isNull->getValue());
     }
 
     /**
