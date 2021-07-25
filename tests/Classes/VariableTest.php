@@ -131,6 +131,26 @@ class VariableTest extends TestCase implements VariableTestInterface
     }
 
     /**
+     * @return array
+     */
+    public function provideMethodIsFloatFalse()
+    {
+        return array_merge(
+            $this->getValuesBoolean(),
+            $this->getValuesInteger(),
+            $this->getValuesString()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsFloatTrue()
+    {
+        return $this->getValuesFloat();
+    }
+
+    /**
      * @return void
      */
     public function testImplementationVariable()
@@ -222,5 +242,49 @@ class VariableTest extends TestCase implements VariableTestInterface
         $this->assertInstanceOf(VariableInterface::class, $isBoolean);
         $this->assertInstanceOf(Variable::class, $isBoolean);
         $this->assertSame(true, $isBoolean->getValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testMethodIsFloatDefault()
+    {
+        $variable = new Variable();
+        $isFloat = $variable->isFloat();
+        $this->assertInstanceOf(VariableInterface::class, $isFloat);
+        $this->assertInstanceOf(Variable::class, $isFloat);
+        $this->assertSame(false, $isFloat->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodIsFloatFalse
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsFloatFalse($value)
+    {
+        $variable = new Variable($value);
+        $isFloat = $variable->isFloat();
+        $this->assertInstanceOf(VariableInterface::class, $isFloat);
+        $this->assertInstanceOf(Variable::class, $isFloat);
+        $this->assertSame(false, $isFloat->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodIsFloatTrue
+     *
+     * @param float $value
+     *
+     * @return void
+     */
+    public function testMethodIsFloatTrue($value)
+    {
+        $variable = new Variable($value);
+        $isFloat = $variable->isFloat();
+        $this->assertInstanceOf(VariableInterface::class, $isFloat);
+        $this->assertInstanceOf(Variable::class, $isFloat);
+        $this->assertSame(true, $isFloat->getValue());
     }
 }

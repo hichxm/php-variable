@@ -46,6 +46,16 @@ interface VariableTest
     public function provideMethodIsBooleanTrue();
 
     /**
+     * @return array
+     */
+    public function provideMethodIsFloatFalse();
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsFloatTrue();
+
+    /**
      * @return void
      */
     public function testImplementationVariable();
@@ -100,4 +110,27 @@ interface VariableTest
      * @return void
      */
     public function testMethodIsBooleanTrue($value);
+
+    /**
+     * @return void
+     */
+    public function testMethodIsFloatDefault();
+
+    /**
+     * @dataProvider provideMethodIsFloatFalse
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsFloatFalse($value);
+
+    /**
+     * @dataProvider provideMethodIsFloatTrue
+     *
+     * @param float $value
+     *
+     * @return void
+     */
+    public function testMethodIsFloatTrue($value);
 }
