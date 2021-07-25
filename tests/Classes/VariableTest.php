@@ -49,10 +49,30 @@ class VariableTest extends TestCase implements VariableTestInterface
      */
     private function getValuesBoolean()
     {
+        return array_merge(
+            $this->getValuesBooleanEmpty(),
+            $this->getValuesBooleanEmptyNot()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    private function getValuesBooleanEmpty()
+    {
         return [
             [
                 false,
             ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getValuesBooleanEmptyNot()
+    {
+        return [
             [
                 true,
             ],
@@ -64,6 +84,17 @@ class VariableTest extends TestCase implements VariableTestInterface
      */
     private function getValuesFloat()
     {
+        return array_merge(
+            $this->getValuesFloatEmpty(),
+            $this->getValuesFloatEmptyNot()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    private function getValuesFloatEmpty()
+    {
         return [
             [
                 0.0,
@@ -74,11 +105,46 @@ class VariableTest extends TestCase implements VariableTestInterface
     /**
      * @return array
      */
+    private function getValuesFloatEmptyNot()
+    {
+        return [
+            [
+                0.1,
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
     private function getValuesInteger()
+    {
+        return array_merge(
+            $this->getValuesIntegerEmpty(),
+            $this->getValuesIntegerEmptyNot()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    private function getValuesIntegerEmpty()
     {
         return [
             [
                 0,
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getValuesIntegerEmptyNot()
+    {
+        return [
+            [
+                1,
             ],
         ];
     }
@@ -101,15 +167,41 @@ class VariableTest extends TestCase implements VariableTestInterface
     private function getValuesString()
     {
         return array_merge(
-            $this->getValuesStringNumeric(),
-            $this->getValuesStringNumericNot()
+            $this->getValuesStringEmptyNotNumeric(),
+            $this->getValuesStringEmptyNotNumericNot(),
+            $this->getValuesStringEmptyNumeric(),
+            $this->getValuesStringEmptyNumericNot()
         );
     }
 
     /**
      * @return array
      */
-    private function getValuesStringNumeric()
+    private function getValuesStringEmptyNotNumeric()
+    {
+        return [
+            [
+                "1",
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getValuesStringEmptyNotNumericNot()
+    {
+        return [
+            [
+                "string",
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getValuesStringEmptyNumeric()
     {
         return [
             [
@@ -121,7 +213,7 @@ class VariableTest extends TestCase implements VariableTestInterface
     /**
      * @return array
      */
-    private function getValuesStringNumericNot()
+    private function getValuesStringEmptyNumericNot()
     {
         return [
             [
@@ -210,6 +302,34 @@ class VariableTest extends TestCase implements VariableTestInterface
     /**
      * @return array
      */
+    public function provideMethodIsEmptyFalse()
+    {
+        return array_merge(
+            $this->getValuesBooleanEmptyNot(),
+            $this->getValuesFloatEmptyNot(),
+            $this->getValuesIntegerEmptyNot(),
+            $this->getValuesStringEmptyNotNumeric(),
+            $this->getValuesStringEmptyNotNumericNot()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsEmptyTrue()
+    {
+        return array_merge(
+            $this->getValuesBooleanEmpty(),
+            $this->getValuesFloatEmpty(),
+            $this->getValuesIntegerEmpty(),
+            $this->getValuesStringEmptyNumeric(),
+            $this->getValuesStringEmptyNumericNot()
+        );
+    }
+
+    /**
+     * @return array
+     */
     public function provideMethodIsFloatFalse()
     {
         return array_merge(
@@ -278,7 +398,8 @@ class VariableTest extends TestCase implements VariableTestInterface
         return array_merge(
             $this->getValuesBoolean(),
             $this->getValuesNull(),
-            $this->getValuesStringNumericNot()
+            $this->getValuesStringEmptyNumericNot(),
+            $this->getValuesStringEmptyNotNumericNot()
         );
     }
 
@@ -290,7 +411,8 @@ class VariableTest extends TestCase implements VariableTestInterface
         return array_merge(
             $this->getValuesFloat(),
             $this->getValuesInteger(),
-            $this->getValuesStringNumeric()
+            $this->getValuesStringEmptyNumeric(),
+            $this->getValuesStringEmptyNotNumeric()
         );
     }
 
@@ -520,6 +642,50 @@ class VariableTest extends TestCase implements VariableTestInterface
         $this->assertInstanceOf(VariableInterface::class, $isBoolean);
         $this->assertInstanceOf(Variable::class, $isBoolean);
         $this->assertSame(true, $isBoolean->getValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testMethodIsEmptyDefault()
+    {
+        $variable = new Variable();
+        $isEmpty = $variable->isEmpty();
+        $this->assertInstanceOf(VariableInterface::class, $isEmpty);
+        $this->assertInstanceOf(Variable::class, $isEmpty);
+        $this->assertSame(true, $isEmpty->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodIsEmptyFalse
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsEmptyFalse($value)
+    {
+        $variable = new Variable($value);
+        $isEmpty = $variable->isEmpty();
+        $this->assertInstanceOf(VariableInterface::class, $isEmpty);
+        $this->assertInstanceOf(Variable::class, $isEmpty);
+        $this->assertSame(false, $isEmpty->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodIsEmptyTrue
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsEmptyTrue($value)
+    {
+        $variable = new Variable($value);
+        $isEmpty = $variable->isEmpty();
+        $this->assertInstanceOf(VariableInterface::class, $isEmpty);
+        $this->assertInstanceOf(Variable::class, $isEmpty);
+        $this->assertSame(true, $isEmpty->getValue());
     }
 
     /**

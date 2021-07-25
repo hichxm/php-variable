@@ -73,6 +73,16 @@ interface VariableTest
     /**
      * @return array
      */
+    public function provideMethodIsEmptyFalse();
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsEmptyTrue();
+
+    /**
+     * @return array
+     */
     public function provideMethodIsFloatFalse();
 
     /**
@@ -233,6 +243,27 @@ interface VariableTest
      * @return void
      */
     public function testMethodIsBooleanTrue($value);
+
+    /**
+     * @return void
+     */
+    public function testMethodIsEmptyDefault();
+
+    /**
+     * @dataProvider provideMethodIsEmptyFalse
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsEmptyFalse($value);
+
+    /**
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsEmptyTrue($value);
 
     /**
      * @return void
