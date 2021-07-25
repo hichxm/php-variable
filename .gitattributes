@@ -1,5 +1,5 @@
 # Git
-.gitattributes text eol=lf
+.gitattributes text eol=lf export-ignore
 .gitignore text eol=lf export-ignore
 
 # JSON
@@ -11,6 +11,7 @@
 
 # PHP
 *.php text eol=lf
+/tests/ export-ignore
 
 # YAML
 *.yml text eol=lf export-ignore
