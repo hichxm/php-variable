@@ -66,6 +66,16 @@ interface VariableTest
     public function provideMethodIsIntegerTrue();
 
     /**
+     * @return array
+     */
+    public function provideMethodIsStringFalse();
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsStringTrue();
+
+    /**
      * @return void
      */
     public function testImplementationVariable();
@@ -166,4 +176,27 @@ interface VariableTest
      * @return void
      */
     public function testMethodIsIntegerTrue($value);
+
+    /**
+     * @return void
+     */
+    public function testMethodIsStringDefault();
+
+    /**
+     * @dataProvider provideMethodIsStringFalse
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsStringFalse($value);
+
+    /**
+     * @dataProvider provideMethodIsStringTrue
+     *
+     * @param string $value
+     *
+     * @return void
+     */
+    public function testMethodIsStringTrue($value);
 }

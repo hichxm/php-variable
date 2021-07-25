@@ -171,6 +171,26 @@ class VariableTest extends TestCase implements VariableTestInterface
     }
 
     /**
+     * @return array
+     */
+    public function provideMethodIsStringFalse()
+    {
+        return array_merge(
+            $this->getValuesBoolean(),
+            $this->getValuesFloat(),
+            $this->getValuesInteger()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsStringTrue()
+    {
+        return $this->getValuesString();
+    }
+
+    /**
      * @return void
      */
     public function testImplementationVariable()
@@ -350,5 +370,49 @@ class VariableTest extends TestCase implements VariableTestInterface
         $this->assertInstanceOf(VariableInterface::class, $isInteger);
         $this->assertInstanceOf(Variable::class, $isInteger);
         $this->assertSame(true, $isInteger->getValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testMethodIsStringDefault()
+    {
+        $variable = new Variable();
+        $isString = $variable->isString();
+        $this->assertInstanceOf(VariableInterface::class, $isString);
+        $this->assertInstanceOf(Variable::class, $isString);
+        $this->assertSame(false, $isString->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodIsStringFalse
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsStringFalse($value)
+    {
+        $variable = new Variable($value);
+        $isString = $variable->isString();
+        $this->assertInstanceOf(VariableInterface::class, $isString);
+        $this->assertInstanceOf(Variable::class, $isString);
+        $this->assertSame(false, $isString->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodIsStringTrue
+     *
+     * @param string $value
+     *
+     * @return void
+     */
+    public function testMethodIsStringTrue($value)
+    {
+        $variable = new Variable($value);
+        $isString = $variable->isString();
+        $this->assertInstanceOf(VariableInterface::class, $isString);
+        $this->assertInstanceOf(Variable::class, $isString);
+        $this->assertSame(true, $isString->getValue());
     }
 }
