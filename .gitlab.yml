@@ -1,0 +1,54 @@
+.test:
+    image: ${IMAGE}:${PHP}
+    before_script:
+        - composer update --no-progress
+    script:
+        - composer test
+    stage: test
+
+cache:
+    key: ${CI_JOB_NAME}
+    paths:
+        - vendor/
+
+PHP 5.6:
+    extends:
+        - .test
+    variables:
+        PHP: "5.6"
+
+PHP 7.0:
+    extends:
+        - .test
+    variables:
+        PHP: "7.0"
+
+PHP 7.1:
+    extends:
+        - .test
+    variables:
+        PHP: "7.1"
+
+PHP 7.2:
+    extends:
+        - .test
+    variables:
+        PHP: "7.2"
+
+PHP 7.3:
+    extends:
+        - .test
+    variables:
+        PHP: "7.3"
+
+PHP 7.4:
+    extends:
+        - .test
+    variables:
+        PHP: "7.4"
+
+stages:
+    - test
+
+variables:
+    IMAGE: "registry.gitlab.com/quorrax/docker/runners/php"

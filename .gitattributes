@@ -11,3 +11,6 @@
 
 # PHP
 *.php text eol=lf
+
+# YAML
+*.yml text eol=lf export-ignore
