@@ -87,6 +87,29 @@ class VariableTest extends TestCase implements VariableTestInterface
      */
     private function getValuesString()
     {
+        return array_merge(
+            $this->getValuesStringNumeric(),
+            $this->getValuesStringNumericNot()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    private function getValuesStringNumeric()
+    {
+        return [
+            [
+                "0",
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getValuesStringNumericNot()
+    {
         return [
             [
                 "",
@@ -200,6 +223,29 @@ class VariableTest extends TestCase implements VariableTestInterface
     public function provideMethodIsIntegerTrue()
     {
         return $this->getValuesInteger();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsNumericFalse()
+    {
+        return array_merge(
+            $this->getValuesBoolean(),
+            $this->getValuesStringNumericNot()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsNumericTrue()
+    {
+        return array_merge(
+            $this->getValuesFloat(),
+            $this->getValuesInteger(),
+            $this->getValuesStringNumeric()
+        );
     }
 
     /**
@@ -478,6 +524,50 @@ class VariableTest extends TestCase implements VariableTestInterface
         $this->assertInstanceOf(VariableInterface::class, $isInteger);
         $this->assertInstanceOf(Variable::class, $isInteger);
         $this->assertSame(true, $isInteger->getValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testMethodIsNumericDefault()
+    {
+        $variable = new Variable();
+        $isNumeric = $variable->isNumeric();
+        $this->assertInstanceOf(VariableInterface::class, $isNumeric);
+        $this->assertInstanceOf(Variable::class, $isNumeric);
+        $this->assertSame(false, $isNumeric->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodIsNumericFalse
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsNumericFalse($value)
+    {
+        $variable = new Variable($value);
+        $isNumeric = $variable->isNumeric();
+        $this->assertInstanceOf(VariableInterface::class, $isNumeric);
+        $this->assertInstanceOf(Variable::class, $isNumeric);
+        $this->assertSame(false, $isNumeric->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodIsNumericTrue
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function testMethodIsNumericTrue($value)
+    {
+        $variable = new Variable($value);
+        $isNumeric = $variable->isNumeric();
+        $this->assertInstanceOf(VariableInterface::class, $isNumeric);
+        $this->assertInstanceOf(Variable::class, $isNumeric);
+        $this->assertSame(true, $isNumeric->getValue());
     }
 
     /**
