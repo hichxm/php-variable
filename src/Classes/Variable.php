@@ -20,143 +20,113 @@
 
 namespace Quorrax\Classes;
 
-use Exception;
-use Quorrax\Classes\Variables\Boolean;
-use Quorrax\Classes\Variables\Character;
 use Quorrax\Interfaces\Variable as VariableInterface;
-use Quorrax\Interfaces\Variables\Boolean as BooleanInterface;
-use Quorrax\Interfaces\Variables\Character as CharacterInterface;
 
 /**
  * @package Quorrax\Classes
  */
-abstract class Variable implements VariableInterface
+class Variable implements VariableInterface
 {
     /**
-     * @param string $function
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Boolean
-     * @throws \Exception
+     * @var mixed
      */
-    private function is($function, $return)
+    private $value;
+
+    /**
+     * @param mixed $value
+     *
+     * @return void
+     */
+    private function setValue($value)
     {
-        if (is_a($return, BooleanInterface::class, true)) {
-            if ($function === "empty") {
-                return new $return(empty($this->getValue()));
-            } else {
-                return new $return(call_user_func($function, $this->getValue()));
-            }
-        } else {
-            throw new Exception(); // TODO: Define an exception message.
-        }
+        $this->value = $value;
+    }
+
+    /**
+     * @return \Quorrax\Classes\Variable
+     */
+    public function getType()
+    {
+        return new Variable(gettype($this->value));
     }
 
     /**
      * @return mixed
      */
-    abstract public function getValue();
-
-    /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Character
-     * @throws \Exception
-     */
-    public function getType($return = Character::class)
+    public function getValue()
     {
-        if (is_a($return, CharacterInterface::class, true)) {
-            return new $return(gettype($this->getValue()));
-        } else {
-            throw new Exception(); // TODO: Define an exception message.
-        }
+        return $this->value;
     }
 
     /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Boolean
-     * @throws \Exception
+     * @return \Quorrax\Classes\Variable
      */
-    public function isBoolean($return = Boolean::class)
+    public function isBoolean()
     {
-        return $this->is("is_bool", $return);
+        return new Variable(is_bool($this->value));
     }
 
     /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Boolean
-     * @throws \Exception
+     * @return \Quorrax\Classes\Variable
      */
-    public function isEmpty($return = Boolean::class)
+    public function isEmpty()
     {
-        return $this->is("empty", $return);
+        return new Variable(empty($this->value));
     }
 
     /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Boolean
-     * @throws \Exception
+     * @return \Quorrax\Classes\Variable
      */
-    public function isFloat($return = Boolean::class)
+    public function isFloat()
     {
-        return $this->is("is_float", $return);
+        return new Variable(is_float($this->value));
     }
 
     /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Boolean
-     * @throws \Exception
+     * @return \Quorrax\Classes\Variable
      */
-    public function isInteger($return = Boolean::class)
+    public function isInteger()
     {
-        return $this->is("is_int", $return);
+        return new Variable(is_int($this->value));
     }
 
     /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Boolean
-     * @throws \Exception
+     * @return \Quorrax\Classes\Variable
      */
-    public function isNull($return = Boolean::class)
+    public function isNull()
     {
-        return $this->is("is_null", $return);
+        return new Variable(is_null($this->value));
     }
 
     /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Boolean
-     * @throws \Exception
+     * @return \Quorrax\Classes\Variable
      */
-    public function isNumeric($return = Boolean::class)
+    public function isNumeric()
     {
-        return $this->is("is_numeric", $return);
+        return new Variable(is_numeric($this->value));
     }
 
     /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Boolean
-     * @throws \Exception
+     * @return \Quorrax\Classes\Variable
      */
-    public function isScalar($return = Boolean::class)
+    public function isScalar()
     {
-        return $this->is("is_scalar", $return);
+        return new Variable(is_scalar($this->value));
     }
 
     /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Boolean
-     * @throws \Exception
+     * @return \Quorrax\Classes\Variable
      */
-    public function isString($return = Boolean::class)
+    public function isString()
     {
-        return $this->is("is_string", $return);
+        return new Variable(is_string($this->value));
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function __construct($value = null)
+    {
+        $this->setValue($value);
     }
 }

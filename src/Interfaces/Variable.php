@@ -20,20 +20,15 @@
 
 namespace Quorrax\Interfaces;
 
-use Quorrax\Classes\Variables\Boolean;
-use Quorrax\Classes\Variables\Character;
-
 /**
  * @package Quorrax\Interfaces
  */
 interface Variable
 {
     /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Character
+     * @return \Quorrax\Interfaces\Variable
      */
-    public function getType($return = Character::class);
+    public function getType();
 
     /**
      * @return mixed
@@ -41,58 +36,47 @@ interface Variable
     public function getValue();
 
     /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Boolean
+     * @return \Quorrax\Interfaces\Variable
      */
-    public function isBoolean($return = Boolean::class);
+    public function isBoolean();
 
     /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Boolean
+     * @return \Quorrax\Interfaces\Variable
      */
-    public function isEmpty($return = Boolean::class);
+    public function isEmpty();
 
     /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Boolean
+     * @return \Quorrax\Interfaces\Variable
      */
-    public function isFloat($return = Boolean::class);
+    public function isFloat();
 
     /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Boolean
+     * @return \Quorrax\Interfaces\Variable
      */
-    public function isInteger($return = Boolean::class);
+    public function isInteger();
 
     /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Boolean
+     * @return \Quorrax\Interfaces\Variable
      */
-    public function isNull($return = Boolean::class);
+    public function isNull();
 
     /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Boolean
+     * @return \Quorrax\Interfaces\Variable
      */
-    public function isNumeric($return = Boolean::class);
+    public function isNumeric();
 
     /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Boolean
+     * @return \Quorrax\Interfaces\Variable
      */
-    public function isScalar($return = Boolean::class);
+    public function isScalar();
 
     /**
-     * @param string $return
-     *
-     * @return \Quorrax\Interfaces\Variables\Boolean
+     * @return \Quorrax\Interfaces\Variable
      */
-    public function isString($return = Boolean::class);
+    public function isString();
+
+    /**
+     * @param mixed $value
+     */
+    public function __construct($value);
 }

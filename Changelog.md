@@ -1,53 +1,19 @@
-# 2.0.0 #
-
-## Added ##
-
-* Added the `Quorrax\Classes\Variables\Boolean` class.
-    * Added the `setValue` private method.
-    * Added the `value` private property.
-    * Added the `getValue` public method.
-    * Added the `__construct` public method.
-* Added the `Quorrax\Classes\Variables\Character` class.
-    * Added the `setValue` private method.
-    * Added the `value` private property.
-    * Added the `getValue` public method.
-    * Added the `__construct` public method.
-* Added the `Quorrax\Interfaces\Variables\Boolean` interface.
-    * Added the `getValue` public method.
-    * Added the `__construct` public method.
-* Added the `Quorrax\Interfaces\Variables\Character` interface.
-    * Added the `getValue` public method.
-    * Added the `__construct` public method.
-
-## Changed ##
-
-* Changed the `Quorrax\Classes\Variable` class, making it now abstract.
-* Changed the `getType` public method, making it now accept a class namespace as a parameter and return an object which implements the `Quorrax\Interfaces\Variables\Character` interface.
-* Changed the `getValue` public method in the `Quorrax\Classes\Variable` class, making it abstract.
-* Changed the following public methods to accept a class namespace and return an object which implements the `Quorrax\Interfaces\Variables\Boolean` interface.
-    * `isBoolean`
-    * `isEmpty`
-    * `isFloat`
-    * `isInteger`
-    * `isNull`
-    * `isNumeric`
-    * `isScalar`
-    * `isString`
-
-## Removed ##
-
-* Removed the `setValue` private method from the `Quorrax\Classes\Variable` class.
-* Removed the `__construct` public method from the `Quorrax\Classes\Variable` class.
-* Removed the `__construct` public method from the `Quorrax\Interfaces\Variable` interface.
-
 # 1.4.0 #
 
 ## Added ##
 
 * Added new methods to the `Quorrax\Classes\Variable` class:
     * Added the `getType` public method.
+    * Added the `isEmpty` public method.
+    * Added the `isNull` public method.
+    * Added the `isNumeric` public method.
+    * Added the `isScalar` public method.
 * Added new methods to the `Quorrax\Interfaces\Variable` interface:
     * Added the `getType` public method.
+    * Added the `isEmpty` public method.
+    * Added the `isNull` public method.
+    * Added the `isNumeric` public method.
+    * Added the `isScalar` public method.
 
 # 1.3.0 #
 
