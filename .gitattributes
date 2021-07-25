@@ -13,5 +13,8 @@
 *.php text eol=lf
 /tests/ export-ignore
 
+# XML
+*.xml text eol=lf export-ignore
+
 # YAML
 *.yml text eol=lf export-ignore

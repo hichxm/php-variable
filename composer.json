@@ -19,7 +19,7 @@
         "optimize-autoloader": true,
         "sort-packages": true
     },
-    "description": "An object-oriented solution for handling variables in PHP.",
+    "description": "An object-oriented solution for handling variables.",
     "license": "GPL-3.0-or-later",
     "minimum-stability": "stable",
     "name": "quorrax/variable",
@@ -28,6 +28,9 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7"
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit -c ./phpunit.xml"
     },
     "type": "library"
 }
