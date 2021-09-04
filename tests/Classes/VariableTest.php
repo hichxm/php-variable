@@ -138,7 +138,7 @@ class VariableTest extends TestCase implements VariableTestInterface
         $type = $variable->getType();
         $this->assertInstanceOf(VariableInterface::class, $type);
         $this->assertInstanceOf($return, $type);
-        $this->assertSame("NULL", $type->getValue());
+        $this->assertSame("double", $type->getValue());
     }
 
     /**
