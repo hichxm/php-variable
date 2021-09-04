@@ -1,8 +1,8 @@
 <?php
 
-namespace Quorrax\Tests\Classes\Concerns;
+namespace Quorrax\Tests\Traits;
 
-trait ProviderTrait
+trait Provider
 {
     /**
      * @return array

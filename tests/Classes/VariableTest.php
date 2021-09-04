@@ -23,7 +23,7 @@ namespace Quorrax\Tests\Classes;
 use PHPUnit\Framework\TestCase;
 use Quorrax\Classes\Variable;
 use Quorrax\Interfaces\Variable as VariableInterface;
-use Quorrax\Tests\Classes\Concerns\ProviderTrait;
+use Quorrax\Tests\Traits\Provider;
 use Quorrax\Tests\Interfaces\VariableTest as VariableTestInterface;
 
 /**
@@ -32,7 +32,7 @@ use Quorrax\Tests\Interfaces\VariableTest as VariableTestInterface;
 class VariableTest extends TestCase implements VariableTestInterface
 {
 
-    use ProviderTrait;
+    use Provider;
 
     /**
      * @return void
