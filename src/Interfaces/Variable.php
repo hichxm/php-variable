@@ -26,9 +26,11 @@ namespace Quorrax\Interfaces;
 interface Variable
 {
     /**
+     * @param string $return
+     *
      * @return \Quorrax\Interfaces\Variable
      */
-    public function getType();
+    public function getType($return);
 
     /**
      * @return mixed
