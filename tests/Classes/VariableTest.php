@@ -24,9 +24,8 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Quorrax\Classes\Variable;
 use Quorrax\Interfaces\Variable as VariableInterface;
-use Quorrax\Tests\Traits\Provider;
 use Quorrax\Tests\Interfaces\VariableTest as VariableTestInterface;
-use stdClass;
+use Quorrax\Tests\Traits\Provider;
 use UnexpectedValueException;
 
 /**

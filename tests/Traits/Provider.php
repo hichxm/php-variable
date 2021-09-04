@@ -2,6 +2,12 @@
 
 namespace Quorrax\Tests\Traits;
 
+use Quorrax\Classes\Variable;
+use stdClass;
+
+/**
+ * @package Quorrax\Tests\Traits
+ */
 trait Provider
 {
     /**
@@ -207,9 +213,37 @@ trait Provider
     /**
      * @return array
      */
-    public function provideMethodGetTypeBoolean()
+    public function provideMethodGetTypeBooleanReturnCustom()
+    {
+        $data = [];
+        $returns = [Variable::class];
+        foreach ($returns as $return) {
+            foreach ($this->getValuesBoolean() as $value) {
+                $value[] = $return;
+                array_push($data, $value);
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeBooleanReturnDefault()
     {
         return $this->getValuesBoolean();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeDefaultReturnCustom()
+    {
+        return [
+            [
+                Variable::class,
+            ],
+        ];
     }
 
     /**
@@ -218,6 +252,31 @@ trait Provider
     public function provideMethodGetTypeDouble()
     {
         return $this->getValuesFloat();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeExceptionInvalidArgument()
+    {
+        return array_merge(
+            $this->getValuesBoolean(),
+            $this->getValuesFloat(),
+            $this->getValuesInteger(),
+            $this->getValuesNull()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeExceptionUnexpectedValue()
+    {
+        return [
+            [
+                stdClass::class,
+            ],
+        ];
     }
 
     /**
@@ -430,58 +489,5 @@ trait Provider
     public function provideMethodIsStringTrue()
     {
         return $this->getValuesString();
-    }
-
-    /**
-     * @return array
-     */
-    public function provideMethodGetTypeBooleanReturnCustom()
-    {
-        $data = [];
-        $returns = [Variable::class];
-        foreach ($returns as $return) {
-            foreach ($this->getValuesBoolean() as $value) {
-                $value[] = $return;
-                array_push($data, $value);
-            }
-        }
-        return $data;
-    }
-
-    /**
-     * @return array
-     */
-    public function provideMethodGetTypeDefaultReturnCustom()
-    {
-        return [
-            [
-                Variable::class,
-            ],
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function provideMethodGetTypeExceptionInvalidArgument()
-    {
-        return array_merge(
-            $this->getValuesBoolean(),
-            $this->getValuesFloat(),
-            $this->getValuesInteger(),
-            $this->getValuesNull()
-        );
-    }
-
-    /**
-     * @return array
-     */
-    public function provideMethodGetTypeExceptionUnexpectedValue()
-    {
-        return [
-            [
-                stdClass::class,
-            ],
-        ];
     }
 }
