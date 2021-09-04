@@ -1,5 +1,17 @@
 [![Build Status](https://travis-ci.com/quorrax/php-variable-test.svg?branch=pro)](https://travis-ci.com/quorrax/php-variable-test)
 
+# Example
+
+```php
+use Quorrax\Classes\Variable;
+
+$var = new Variable('Hi I string var');
+
+$var->isString(); // true
+$var->isBoolean(); // false
+$var->isNumeric(); // false
+```
+
 # Copyright # 
 
 Copyright © 2021 Quorrax, S. L.
