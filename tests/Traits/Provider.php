@@ -432,6 +432,9 @@ trait Provider
         return $this->getValuesString();
     }
 
+    /**
+     * @return array
+     */
     public function provideMethodGetTypeBooleanReturnCustom()
     {
         $data = [];
@@ -443,5 +446,42 @@ trait Provider
             }
         }
         return $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeDefaultReturnCustom()
+    {
+        return [
+            [
+                Variable::class,
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeExceptionInvalidArgument()
+    {
+        return array_merge(
+            $this->getValuesBoolean(),
+            $this->getValuesFloat(),
+            $this->getValuesInteger(),
+            $this->getValuesNull()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeExceptionUnexpectedValue()
+    {
+        return [
+            [
+                stdClass::class,
+            ],
+        ];
     }
 }
