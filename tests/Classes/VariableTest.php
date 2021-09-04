@@ -35,6 +35,25 @@ class VariableTest extends TestCase implements VariableTestInterface
 {
     use Provider;
 
+    const BOOLEAN_TYPE = 'boolean';
+    
+    const NULL_TYPE = 'null';
+
+    const DOUBLE_TYPE = 'double';
+    
+    const INTEGER_TYPE = 'integer';
+    
+    const STRING_TYPE = 'string';
+
+    private function assertionsSuitsType(Variable $type, string $value, $return = null)
+    {
+        $this->assertInstanceOf(VariableInterface::class, $type);
+        $this->assertSame($value, $type->getValue());
+
+        if(!is_null($return))
+            $this->assertInstanceOf($return, $type);
+    }
+
     /**
      * @return void
      */
@@ -75,9 +94,8 @@ class VariableTest extends TestCase implements VariableTestInterface
     {
         $variable = new Variable($value);
         $type = $variable->getType($return);
-        $this->assertInstanceOf(VariableInterface::class, $type);
-        $this->assertInstanceOf($return, $type);
-        $this->assertSame("boolean", $type->getValue());
+        
+        $this->assertionsSuitsType($type, self::BOOLEAN_TYPE, $return);
     }
 
     /**
@@ -91,9 +109,8 @@ class VariableTest extends TestCase implements VariableTestInterface
     {
         $variable = new Variable($value);
         $type = $variable->getType();
-        $this->assertInstanceOf(VariableInterface::class, $type);
-        $this->assertInstanceOf(Variable::class, $type);
-        $this->assertSame("boolean", $type->getValue());
+        
+        $this->assertionsSuitsType($type, self::BOOLEAN_TYPE);
     }
 
     /**
@@ -107,9 +124,8 @@ class VariableTest extends TestCase implements VariableTestInterface
     {
         $variable = new Variable();
         $type = $variable->getType($return);
-        $this->assertInstanceOf(VariableInterface::class, $type);
-        $this->assertInstanceOf($return, $type);
-        $this->assertSame("NULL", $type->getValue());
+
+        $this->assertionsSuitsType($type, self::NULL_TYPE, $return);
     }
 
     /**
@@ -119,9 +135,8 @@ class VariableTest extends TestCase implements VariableTestInterface
     {
         $variable = new Variable();
         $type = $variable->getType();
-        $this->assertInstanceOf(VariableInterface::class, $type);
-        $this->assertInstanceOf(Variable::class, $type);
-        $this->assertSame("NULL", $type->getValue());
+
+        $this->assertionsSuitsType($type, self::NULL_TYPE);
     }
 
     /**
@@ -135,9 +150,8 @@ class VariableTest extends TestCase implements VariableTestInterface
     {
         $variable = new Variable($value);
         $type = $variable->getType();
-        $this->assertInstanceOf(VariableInterface::class, $type);
-        $this->assertInstanceOf(Variable::class, $type);
-        $this->assertSame("double", $type->getValue());
+
+        $this->assertionsSuitsType($type, self::DOUBLE_TYPE);
     }
 
     /**
@@ -183,9 +197,8 @@ class VariableTest extends TestCase implements VariableTestInterface
     {
         $variable = new Variable($value);
         $type = $variable->getType();
-        $this->assertInstanceOf(VariableInterface::class, $type);
-        $this->assertInstanceOf(Variable::class, $type);
-        $this->assertSame("integer", $type->getValue());
+
+        $this->assertionsSuitsType($type, self::INTEGER_TYPE);
     }
 
     /**
@@ -199,9 +212,8 @@ class VariableTest extends TestCase implements VariableTestInterface
     {
         $variable = new Variable($value);
         $type = $variable->getType();
-        $this->assertInstanceOf(VariableInterface::class, $type);
-        $this->assertInstanceOf(Variable::class, $type);
-        $this->assertSame("NULL", $type->getValue());
+        
+        $this->assertionsSuitsType($type, self::NULL_TYPE);
     }
 
     /**
@@ -215,9 +227,8 @@ class VariableTest extends TestCase implements VariableTestInterface
     {
         $variable = new Variable($value);
         $type = $variable->getType();
-        $this->assertInstanceOf(VariableInterface::class, $type);
-        $this->assertInstanceOf(Variable::class, $type);
-        $this->assertSame("string", $type->getValue());
+
+        $this->assertionsSuitsType($type, self::STRING_TYPE);
     }
 
     /**
