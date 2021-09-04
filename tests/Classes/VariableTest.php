@@ -54,6 +54,11 @@ class VariableTest extends TestCase implements VariableTestInterface
             $this->assertInstanceOf($return, $type);
     }
 
+    private function generateVariableAndGetType($value = null, $return = Variable::class)
+    {
+        return (new Variable($value))->getType($return);
+    }
+
     /**
      * @return void
      */
@@ -92,8 +97,7 @@ class VariableTest extends TestCase implements VariableTestInterface
      */
     public function testMethodGetTypeBooleanReturnCustom($value, $return)
     {
-        $variable = new Variable($value);
-        $type = $variable->getType($return);
+        $type = $this->generateVariableAndGetType($value, $return);
         
         $this->assertionsSuitsType($type, self::BOOLEAN_TYPE, $return);
     }
@@ -107,8 +111,7 @@ class VariableTest extends TestCase implements VariableTestInterface
      */
     public function testMethodGetTypeBooleanReturnDefault($value)
     {
-        $variable = new Variable($value);
-        $type = $variable->getType();
+        $type = $this->generateVariableAndGetType($value);
         
         $this->assertionsSuitsType($type, self::BOOLEAN_TYPE);
     }
@@ -122,8 +125,7 @@ class VariableTest extends TestCase implements VariableTestInterface
      */
     public function testMethodGetTypeDefaultReturnCustom($return)
     {
-        $variable = new Variable();
-        $type = $variable->getType($return);
+        $type = $this->generateVariableAndGetType(null, $return);
 
         $this->assertionsSuitsType($type, self::NULL_TYPE, $return);
     }
@@ -133,8 +135,7 @@ class VariableTest extends TestCase implements VariableTestInterface
      */
     public function testMethodGetTypeDefaultReturnDefault()
     {
-        $variable = new Variable();
-        $type = $variable->getType();
+        $type = $this->generateVariableAndGetType();
 
         $this->assertionsSuitsType($type, self::NULL_TYPE);
     }
@@ -148,8 +149,7 @@ class VariableTest extends TestCase implements VariableTestInterface
      */
     public function testMethodGetTypeDouble($value)
     {
-        $variable = new Variable($value);
-        $type = $variable->getType();
+        $type = $this->generateVariableAndGetType($value);
 
         $this->assertionsSuitsType($type, self::DOUBLE_TYPE);
     }
@@ -195,8 +195,7 @@ class VariableTest extends TestCase implements VariableTestInterface
      */
     public function testMethodGetTypeInteger($value)
     {
-        $variable = new Variable($value);
-        $type = $variable->getType();
+        $type = $this->generateVariableAndGetType($value);
 
         $this->assertionsSuitsType($type, self::INTEGER_TYPE);
     }
@@ -210,8 +209,7 @@ class VariableTest extends TestCase implements VariableTestInterface
      */
     public function testMethodGetTypeNull($value)
     {
-        $variable = new Variable($value);
-        $type = $variable->getType();
+        $type = $this->generateVariableAndGetType($value);
         
         $this->assertionsSuitsType($type, self::NULL_TYPE);
     }
@@ -225,8 +223,7 @@ class VariableTest extends TestCase implements VariableTestInterface
      */
     public function testMethodGetTypeString($value)
     {
-        $variable = new Variable($value);
-        $type = $variable->getType();
+        $type = $this->generateVariableAndGetType($value);
 
         $this->assertionsSuitsType($type, self::STRING_TYPE);
     }
