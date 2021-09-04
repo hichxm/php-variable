@@ -431,4 +431,17 @@ trait Provider
     {
         return $this->getValuesString();
     }
+
+    public function provideMethodGetTypeBooleanReturnCustom()
+    {
+        $data = [];
+        $returns = [Variable::class];
+        foreach ($returns as $return) {
+            foreach ($this->getValuesBoolean() as $value) {
+                $value[] = $return;
+                array_push($data, $value);
+            }
+        }
+        return $data;
+    }
 }
