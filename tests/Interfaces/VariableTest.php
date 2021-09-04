@@ -48,7 +48,12 @@ interface VariableTest
     /**
      * @return array
      */
-    public function provideMethodGetTypeDouble();
+    public function provideMethodGetTypeDoubleReturnCustom();
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeDoubleReturnDefault();
 
     /**
      * @return array
@@ -213,13 +218,23 @@ interface VariableTest
     public function testMethodGetTypeDefaultReturnDefault();
 
     /**
-     * @dataProvider provideMethodGetTypeDouble
+     * @dataProvider provideMethodGetTypeDoubleReturnCustom
+     *
+     * @param float $value
+     * @param string $return
+     *
+     * @return void
+     */
+    public function testMethodGetTypeDoubleReturnCustom($value, $return);
+
+    /**
+     * @dataProvider provideMethodGetTypeDoubleReturnDefault
      *
      * @param float $value
      *
      * @return void
      */
-    public function testMethodGetTypeDouble($value);
+    public function testMethodGetTypeDoubleReturnDefault($value);
 
     /**
      * @dataProvider provideMethodGetTypeExceptionInvalidArgument

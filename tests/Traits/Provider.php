@@ -267,7 +267,23 @@ trait Provider
     /**
      * @return array
      */
-    public function provideMethodGetTypeDouble()
+    public function provideMethodGetTypeDoubleReturnCustom()
+    {
+        $data = [];
+        $returns = [Variable::class];
+        foreach ($returns as $return) {
+            foreach ($this->getValuesFloat() as $value) {
+                $value[] = $return;
+                array_push($data, $value);
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeDoubleReturnDefault()
     {
         return $this->getValuesFloat();
     }

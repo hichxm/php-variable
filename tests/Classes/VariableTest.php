@@ -125,13 +125,30 @@ class VariableTest extends TestCase implements VariableTestInterface
     }
 
     /**
-     * @dataProvider provideMethodGetTypeDouble
+     * @dataProvider provideMethodGetTypeDoubleReturnCustom
+     *
+     * @param float $value
+     * @param string $return
+     *
+     * @return void
+     */
+    public function testMethodGetTypeDoubleReturnCustom($value, $return)
+    {
+        $variable = new Variable($value);
+        $type = $variable->getType();
+        $this->assertInstanceOf(VariableInterface::class, $type);
+        $this->assertInstanceOf($return, $type);
+        $this->assertSame("NULL", $type->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodGetTypeDoubleReturnDefault
      *
      * @param float $value
      *
      * @return void
      */
-    public function testMethodGetTypeDouble($value)
+    public function testMethodGetTypeDoubleReturnDefault($value)
     {
         $variable = new Variable($value);
         $type = $variable->getType();
