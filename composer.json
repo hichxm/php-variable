@@ -1,5 +1,8 @@
 {
     "autoload": {
+        "files": [
+            "src/Helpers/helpers.php"
+        ],
         "psr-4": {
             "Quorrax\\": "src"
         }
