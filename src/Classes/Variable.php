@@ -20,7 +20,9 @@
 
 namespace Quorrax\Classes;
 
+use InvalidArgumentException;
 use Quorrax\Interfaces\Variable as VariableInterface;
+use UnexpectedValueException;
 
 /**
  * @package Quorrax\Classes
@@ -43,11 +45,23 @@ class Variable implements VariableInterface
     }
 
     /**
+     * @param string $return
+     *
      * @return \Quorrax\Classes\Variable
+     * @throws \InvalidArgumentException
+     * @throws \UnexpectedValueException
      */
-    public function getType()
+    public function getType($return = Variable::class)
     {
-        return new Variable(gettype($this->value));
+        if (is_string($return)) {
+            if (is_a($return, VariableInterface::class, true)) {
+                return new $return(gettype($this->getValue()));
+            } else {
+                throw new UnexpectedValueException(); // TODO: Add an exception message.
+            }
+        } else {
+            throw new InvalidArgumentException(); // TODO: Add and exception message.
+        }
     }
 
     /**

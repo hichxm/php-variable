@@ -33,12 +33,32 @@ interface VariableTest
     /**
      * @return array
      */
-    public function provideMethodGetTypeBoolean();
+    public function provideMethodGetTypeBooleanReturnCustom();
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeBooleanReturnDefault();
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeDefaultReturnCustom();
 
     /**
      * @return array
      */
     public function provideMethodGetTypeDouble();
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeExceptionInvalidArgument();
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeExceptionUnexpectedValue();
 
     /**
      * @return array
@@ -160,18 +180,37 @@ interface VariableTest
     public function testMethodConstructDefault();
 
     /**
-     * @dataProvider provideMethodGetTypeBoolean
+     * @dataProvider provideMethodGetTypeBooleanReturnCustom
+     *
+     * @param bool $value
+     * @param string $return
+     *
+     * @return void
+     */
+    public function testMethodGetTypeBooleanReturnCustom($value, $return);
+
+    /**
+     * @dataProvider provideMethodGetTypeBooleanReturnDefault
      *
      * @param bool $value
      *
      * @return void
      */
-    public function testMethodGetTypeBoolean($value);
+    public function testMethodGetTypeBooleanReturnDefault($value);
+
+    /**
+     * @dataProvider provideMethodGetTypeDefaultReturnCustom
+     *
+     * @param string $return
+     *
+     * @return void
+     */
+    public function testMethodGetTypeDefaultReturnCustom($return);
 
     /**
      * @return void
      */
-    public function testMethodGetTypeDefault();
+    public function testMethodGetTypeDefaultReturnDefault();
 
     /**
      * @dataProvider provideMethodGetTypeDouble
@@ -181,6 +220,20 @@ interface VariableTest
      * @return void
      */
     public function testMethodGetTypeDouble($value);
+
+    /**
+     * @dataProvider provideMethodGetTypeExceptionInvalidArgument
+     *
+     * @return void
+     */
+    public function testMethodGetTypeExceptionInvalidArgument($return);
+
+    /**
+     * @dataProvider provideMethodGetTypeExceptionUnexpectedValue
+     *
+     * @return void
+     */
+    public function testMethodGetTypeExceptionUnexpectedValue($return);
 
     /**
      * @dataProvider provideMethodGetTypeInteger

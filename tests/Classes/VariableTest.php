@@ -20,10 +20,13 @@
 
 namespace Quorrax\Tests\Classes;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Quorrax\Classes\Variable;
 use Quorrax\Interfaces\Variable as VariableInterface;
 use Quorrax\Tests\Interfaces\VariableTest as VariableTestInterface;
+use stdClass;
+use UnexpectedValueException;
 
 /**
  * @package Quorrax\Tests\Classes
@@ -233,9 +236,37 @@ class VariableTest extends TestCase implements VariableTestInterface
     /**
      * @return array
      */
-    public function provideMethodGetTypeBoolean()
+    public function provideMethodGetTypeBooleanReturnCustom()
+    {
+        $data = [];
+        $returns = [Variable::class];
+        foreach ($returns as $return) {
+            foreach ($this->getValuesBoolean() as $value) {
+                $value[] = $return;
+                array_push($data, $value);
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeBooleanReturnDefault()
     {
         return $this->getValuesBoolean();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeDefaultReturnCustom()
+    {
+        return [
+            [
+                Variable::class,
+            ],
+        ];
     }
 
     /**
@@ -244,6 +275,31 @@ class VariableTest extends TestCase implements VariableTestInterface
     public function provideMethodGetTypeDouble()
     {
         return $this->getValuesFloat();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeExceptionInvalidArgument()
+    {
+        return array_merge(
+            $this->getValuesBoolean(),
+            $this->getValuesFloat(),
+            $this->getValuesInteger(),
+            $this->getValuesNull()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodGetTypeExceptionUnexpectedValue()
+    {
+        return [
+            [
+                stdClass::class,
+            ],
+        ];
     }
 
     /**
@@ -487,13 +543,30 @@ class VariableTest extends TestCase implements VariableTestInterface
     }
 
     /**
-     * @dataProvider provideMethodGetTypeBoolean
+     * @dataProvider provideMethodGetTypeBooleanReturnCustom
+     *
+     * @param bool $value
+     * @param string $return
+     *
+     * @return void
+     */
+    public function testMethodGetTypeBooleanReturnCustom($value, $return)
+    {
+        $variable = new Variable($value);
+        $type = $variable->getType($return);
+        $this->assertInstanceOf(VariableInterface::class, $type);
+        $this->assertInstanceOf($return, $type);
+        $this->assertSame("boolean", $type->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodGetTypeBooleanReturnDefault
      *
      * @param bool $value
      *
      * @return void
      */
-    public function testMethodGetTypeBoolean($value)
+    public function testMethodGetTypeBooleanReturnDefault($value)
     {
         $variable = new Variable($value);
         $type = $variable->getType();
@@ -503,9 +576,25 @@ class VariableTest extends TestCase implements VariableTestInterface
     }
 
     /**
+     * @dataProvider provideMethodGetTypeDefaultReturnCustom
+     *
+     * @param string $return
+     *
      * @return void
      */
-    public function testMethodGetTypeDefault()
+    public function testMethodGetTypeDefaultReturnCustom($return)
+    {
+        $variable = new Variable();
+        $type = $variable->getType($return);
+        $this->assertInstanceOf(VariableInterface::class, $type);
+        $this->assertInstanceOf($return, $type);
+        $this->assertSame("NULL", $type->getValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testMethodGetTypeDefaultReturnDefault()
     {
         $variable = new Variable();
         $type = $variable->getType();
@@ -528,6 +617,38 @@ class VariableTest extends TestCase implements VariableTestInterface
         $this->assertInstanceOf(VariableInterface::class, $type);
         $this->assertInstanceOf(Variable::class, $type);
         $this->assertSame("double", $type->getValue());
+    }
+
+    /**
+     * @dataProvider provideMethodGetTypeExceptionInvalidArgument
+     *
+     * @param mixed $return
+     *
+     * @return void
+     */
+    public function testMethodGetTypeExceptionInvalidArgument($return)
+    {
+        $variable = new Variable();
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage("");
+        $variable->getType($return);
+    }
+
+    /**
+     * @dataProvider provideMethodGetTypeExceptionUnexpectedValue
+     *
+     * @param string $return
+     *
+     * @return void
+     */
+    public function testMethodGetTypeExceptionUnexpectedValue($return)
+    {
+        $variable = new Variable();
+        $this->expectException(UnexpectedValueException::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage("");
+        $variable->getType($return);
     }
 
     /**
